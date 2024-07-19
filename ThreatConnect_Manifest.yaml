@@ -1,0 +1,29 @@
+Descriptor: 
+  Name: ThreatConnectAssistant
+  DisplayName: ThreatConnect Assistant (Beta)
+  Description: Use this API spec to gather information on indicatiors that ThreatConnect knows about. 
+  DescriptionDisplay: ThreatConnect AI Assistant
+
+Settings:
+    - Name: InstanceURL
+      Label: ThreatConnect Instance URL
+      Description: The URL of the instance to connect to
+      HintText: "e.g. https://example.threatconnect.com"
+      SettingType: String
+      Required: true
+SupportedAuthTypes:
+    - ApiKey
+Authorization:
+    Type: APIKey
+    Key: Authorization
+    Location: Header
+    AuthScheme: 'Bearer'
+Icon: 
+
+
+SkillGroups:
+  - Format: API
+    Settings:
+      OpenApiSpecUrl: https://github.com/tchen-tc/test_ai/blob/main/tc_indicators.yaml
+      EndpointUrlSettingName: InstanceURL
+

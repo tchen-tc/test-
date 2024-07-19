@@ -1,0 +1,3630 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ThreatConnect API",
+    "description": "This is Threatconnect's V3 API documentation",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "sales@threatconnect.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "3.0"
+  },
+  "servers": [
+    {
+      "url": "https://app.threatconnect.com/api",
+      "description": ""
+    }
+  ],
+  "security": [
+    {
+      "APIKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/v3/indicators/{uniqueId}": {
+      "get": {
+        "tags": [
+          "Indicators"
+        ],
+        "summary": "Retrieve Indicator by ID",
+        "description": "Returns a single Indicator corresponding to provided uniqueId",
+        "operationId": "retrieveIndicatorById",
+        "parameters": [
+          {
+            "name": "uniqueId",
+            "in": "path",
+            "description": "ID of the Indicator to be fetched",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "param ID of the Indicator that needs to be fetched",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ]
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Indicator subentity fields to include in response (See OPTIONS endpoint for valid values)",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Boolean that detnotes whether counts should be returned in the resultset",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The Indicator",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Indicator"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Indicators"
+        ],
+        "summary": "Update Indicator by ID",
+        "description": "Allows the updating of an existing Indicator",
+        "operationId": "updateIndicatorById",
+        "parameters": [
+          {
+            "name": "uniqueId",
+            "in": "path",
+            "description": "ID of the Indicator to be updated",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "param ID of the Indicator that needs to be updated",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ]
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Indicator subentity fields to include in response (See OPTIONS endpoint for valid values)",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "createActivityLog",
+            "in": "query",
+            "description": "Boolean to signal whether or not to create an alert for this action",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The Indicator object to be updated",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Indicator"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The updated Indicator",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Indicator"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Indicators"
+        ],
+        "summary": "Delete Indicator by ID",
+        "description": "Allows the deletion of an existing Indicator",
+        "operationId": "deleteIndicatorById",
+        "parameters": [
+          {
+            "name": "uniqueId",
+            "in": "path",
+            "description": "ID of entity to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "param ID of the Indicator that needs to be deleted",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ]
+            }
+          },
+          {
+            "name": "createActivityLog",
+            "in": "query",
+            "description": "Boolean to signal whether or not to create an alert for this action",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Indicator deleted successfully"
+          }
+        }
+      }
+    },
+    "/v3/indicators": {
+      "get": {
+        "tags": [
+          "Indicators"
+        ],
+        "summary": "Retrieve Indicators",
+        "description": "Returns a list of all Indicators",
+        "operationId": "retrieveIndicators",
+        "parameters": [
+          {
+            "name": "tql",
+            "in": "query",
+            "description": "TQL query string for filtering response list ",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Indicator subentity fields to include in response (See OPTIONS endpoint for valid values)",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Boolean that detnotes whether counts should be returned in the resultset",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sorting",
+            "in": "query",
+            "description": "Sorting order for resultset",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The Indicators",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Indicator"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Indicators"
+        ],
+        "summary": "Create Indicator",
+        "description": "Allows the creation of a new Indicator",
+        "operationId": "createIndicator",
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Indicator subentity fields to include in response (See OPTIONS endpoint for valid values)",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "createActivityLog",
+            "in": "query",
+            "description": "Boolean to signal whether or not to create an alert for this action",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "New Indicator object to be created",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Indicator"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The new Indicator",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Indicator"
+                }
+              }
+            }
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "Indicators"
+        ],
+        "summary": "Retrieve entity info",
+        "description": "Returns information about the entity fields",
+        "operationId": "getObjectInfo_16",
+        "parameters": [
+          {
+            "name": "show",
+            "in": "query",
+            "description": "Read only filter for results",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The entity information"
+          }
+        }
+      }
+    },
+    "/v3/indicators/deleted": {
+      "get": {
+        "tags": [
+          "Indicators"
+        ],
+        "summary": "Retrieve Deleted Indicators",
+        "description": "Returns a list of deleted Indicators",
+        "operationId": "retrieveDeletedIndicators",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "A type value for limiting results to provided type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "deletedSince",
+            "in": "query",
+            "description": "A date for limiting the query results. Will return indicators deleted after date provided",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "resultStart",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "resultLimit",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The Indicators",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Indicator"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v3/indicators/{uniqueId}/enrich": {
+      "post": {
+        "tags": [
+          "Indicators"
+        ],
+        "summary": "Enrich Indicator",
+        "description": "Enriches the selected indicator with 3rd-Party information",
+        "operationId": "enrichSingleIndicator",
+        "parameters": [
+          {
+            "name": "uniqueId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryApiEntity"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The Indicator",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Indicator"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v3/indicators/enrich": {
+      "post": {
+        "tags": [
+          "Indicators"
+        ],
+        "summary": "Enrich Indicators",
+        "description": "Enriches a list of Indicators with 3rd-Party information",
+        "operationId": "enrichMultipleIndicators",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Count of indicators enriched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Indicator"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v3/indicators/fields": {
+      "options": {
+        "tags": [
+          "Indicators"
+        ],
+        "summary": "Retrieve fields",
+        "description": "Returns a list of valid field options",
+        "operationId": "getIncludeInfo_16",
+        "responses": {
+          "200": {
+            "description": "The field options"
+          }
+        }
+      }
+    },
+    "/v3/indicators/tql": {
+      "options": {
+        "tags": [
+          "Indicators"
+        ],
+        "summary": "Retrieve tql",
+        "description": "Returns a list of valid tql options",
+        "operationId": "getTqlInfo_16",
+        "parameters": [
+          {
+            "name": "show",
+            "in": "query",
+            "description": "Read only filter for results",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The tql options"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AbstractEnrichment": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "AdversaryAsset": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "webLink": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "handle": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "Artifact": {
+        "required": [
+          "caseId",
+          "caseXid",
+          "summary",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "caseId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "caseXid": {
+            "type": "string"
+          },
+          "summary": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "fieldName": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "artifactType": {
+            "$ref": "#/components/schemas/ArtifactType"
+          },
+          "intelType": {
+            "type": "string"
+          },
+          "fileData": {
+            "type": "string"
+          },
+          "source": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "analyticsType": {
+            "type": "string"
+          },
+          "analyticsScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "analyticsPriority": {
+            "type": "string"
+          },
+          "analyticsPriorityLevel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "analyticsStatus": {
+            "type": "string"
+          },
+          "taskId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "taskXid": {
+            "type": "string"
+          },
+          "notes": {
+            "$ref": "#/components/schemas/ListEntityNote"
+          },
+          "links": {
+            "$ref": "#/components/schemas/ListEntityLink"
+          },
+          "associatedGroups": {
+            "$ref": "#/components/schemas/ListEntityGroup"
+          },
+          "associatedIndicators": {
+            "$ref": "#/components/schemas/ListEntityIndicator"
+          },
+          "derivedLink": {
+            "type": "boolean"
+          },
+          "hashCode": {
+            "type": "string"
+          }
+        }
+      },
+      "ArtifactType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "dataType": {
+            "type": "string"
+          },
+          "intelType": {
+            "type": "string"
+          },
+          "derivedLink": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Assignee": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "AttackSecurityCoverage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "value": {
+            "maxLength": 10,
+            "minLength": 0,
+            "type": "string"
+          }
+        }
+      },
+      "AttributeData": {
+        "required": [
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "securityLabels": {
+            "$ref": "#/components/schemas/ListEntitySecurityLabel"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "maxLength": 2147483647,
+            "minLength": 1,
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "createdBy": {
+            "$ref": "#/components/schemas/User"
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/AttributeSettings"
+          },
+          "pinned": {
+            "type": "boolean"
+          },
+          "default": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AttributeSettings": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "associable": {
+            "type": "boolean"
+          },
+          "pinnedByDefault": {
+            "type": "boolean"
+          },
+          "message": {
+            "maxLength": 400,
+            "minLength": 1,
+            "type": "string"
+          }
+        }
+      },
+      "Case": {
+        "required": [
+          "name",
+          "severity",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "xid": {
+            "maxLength": 100,
+            "minLength": 10,
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "maxLength": 1500,
+            "minLength": 0,
+            "type": "string"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "caseOpenTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "caseCloseTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "caseOpenUser": {
+            "$ref": "#/components/schemas/User"
+          },
+          "caseCloseUser": {
+            "$ref": "#/components/schemas/User"
+          },
+          "caseOccurrenceTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "caseOccurrenceUser": {
+            "$ref": "#/components/schemas/User"
+          },
+          "caseDetectionTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "caseDetectionUser": {
+            "$ref": "#/components/schemas/User"
+          },
+          "status": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string"
+          },
+          "resolution": {
+            "type": "string"
+          },
+          "assignee": {
+            "$ref": "#/components/schemas/Assignee"
+          },
+          "tasks": {
+            "$ref": "#/components/schemas/ListEntityTask"
+          },
+          "artifacts": {
+            "$ref": "#/components/schemas/ListEntityArtifact"
+          },
+          "tags": {
+            "$ref": "#/components/schemas/ListEntityTag"
+          },
+          "notes": {
+            "$ref": "#/components/schemas/ListEntityNote"
+          },
+          "workflowEvents": {
+            "$ref": "#/components/schemas/ListEntityWorkflowEvent"
+          },
+          "userAccess": {
+            "$ref": "#/components/schemas/ListEntityUser"
+          },
+          "createdBy": {
+            "$ref": "#/components/schemas/User"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "ownerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "workflowTemplate": {
+            "$ref": "#/components/schemas/WorkflowTemplate"
+          },
+          "related": {
+            "$ref": "#/components/schemas/ListEntityCase"
+          },
+          "relationship": {
+            "type": "string"
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/ListEntityCaseAttributeData"
+          },
+          "associatedGroups": {
+            "$ref": "#/components/schemas/ListEntityGroup"
+          },
+          "associatedIndicators": {
+            "$ref": "#/components/schemas/ListEntityIndicator"
+          },
+          "associatedCases": {
+            "$ref": "#/components/schemas/ListEntityCase"
+          }
+        }
+      },
+      "CaseAttributeData": {
+        "required": [
+          "caseId",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "securityLabels": {
+            "$ref": "#/components/schemas/ListEntitySecurityLabel"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "maxLength": 2147483647,
+            "minLength": 1,
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "createdBy": {
+            "$ref": "#/components/schemas/User"
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/AttributeSettings"
+          },
+          "caseId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "pinned": {
+            "type": "boolean"
+          },
+          "default": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Contact": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "maxLength": 45,
+            "minLength": 0,
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string"
+          },
+          "organization": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string"
+          },
+          "street1": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string"
+          },
+          "street2": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string"
+          },
+          "city": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string"
+          },
+          "state": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string"
+          },
+          "postalCode": {
+            "maxLength": 15,
+            "minLength": 0,
+            "type": "string"
+          },
+          "country": {
+            "maxLength": 45,
+            "minLength": 0,
+            "type": "string"
+          },
+          "phone": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "email": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          }
+        }
+      },
+      "DNSResolution": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "addresses": {
+            "$ref": "#/components/schemas/ListEntityIndicator"
+          },
+          "host": {
+            "$ref": "#/components/schemas/Indicator"
+          },
+          "dateOccurred": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FileAction": {
+        "type": "object",
+        "properties": {
+          "relationship": {
+            "type": "string"
+          },
+          "indicator": {
+            "$ref": "#/components/schemas/Indicator"
+          }
+        }
+      },
+      "FileOccurrence": {
+        "required": [
+          "fileName",
+          "path"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "fileName": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "path": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "GeoLocation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "country": {
+            "maxLength": 55,
+            "minLength": 0,
+            "type": "string"
+          },
+          "countryCode": {
+            "maxLength": 2,
+            "minLength": 0,
+            "type": "string"
+          },
+          "state": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "timezone": {
+            "type": "string"
+          },
+          "city": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "asn": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "registeringOrg": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "lat": {
+            "type": "number",
+            "format": "double"
+          },
+          "lon": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "Group": {
+        "required": [
+          "name",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "securityLabels": {
+            "$ref": "#/components/schemas/ListEntitySecurityLabel"
+          },
+          "ownerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ownerName": {
+            "type": "string"
+          },
+          "webLink": {
+            "type": "string"
+          },
+          "tags": {
+            "$ref": "#/components/schemas/ListEntityTag"
+          },
+          "type": {
+            "maxLength": 2147483647,
+            "minLength": 1,
+            "type": "string"
+          },
+          "xid": {
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "createdBy": {
+            "$ref": "#/components/schemas/User"
+          },
+          "upVote": {
+            "type": "boolean"
+          },
+          "upVoteCount": {
+            "type": "string"
+          },
+          "downVoteCount": {
+            "type": "string"
+          },
+          "generatedReport": {
+            "type": "boolean"
+          },
+          "associatedGroups": {
+            "$ref": "#/components/schemas/ListEntityGroup"
+          },
+          "associatedIndicators": {
+            "$ref": "#/components/schemas/ListEntityIndicator"
+          },
+          "associatedVictimAssets": {
+            "$ref": "#/components/schemas/ListEntityVictimAsset"
+          },
+          "externalDateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "externalLastModified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "externalDateExpires": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "firstSeen": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastSeen": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "associatedCases": {
+            "$ref": "#/components/schemas/ListEntityCase"
+          },
+          "associatedArtifacts": {
+            "$ref": "#/components/schemas/ListEntityArtifact"
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/ListEntityGroupAttributeData"
+          },
+          "handles": {
+            "$ref": "#/components/schemas/ListEntityAdversaryAsset"
+          },
+          "urls": {
+            "$ref": "#/components/schemas/ListEntityAdversaryAsset"
+          },
+          "fileName": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "fileSize": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string"
+          },
+          "malware": {
+            "type": "boolean"
+          },
+          "password": {
+            "type": "string"
+          },
+          "documentType": {
+            "type": "string"
+          },
+          "insights": {
+            "type": "string"
+          },
+          "documentDateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to": {
+            "type": "string"
+          },
+          "from": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "subject": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "header": {
+            "maxLength": 65535,
+            "minLength": 0,
+            "type": "string"
+          },
+          "body": {
+            "maxLength": 65535,
+            "minLength": 0,
+            "type": "string"
+          },
+          "scoreIncludesBody": {
+            "type": "boolean"
+          },
+          "emailDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "scoreBreakdown": {
+            "type": "string"
+          },
+          "eventDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fileType": {
+            "type": "string"
+          },
+          "fileText": {
+            "type": "string"
+          },
+          "signatureDateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "publishDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "escalated": {
+            "type": "boolean"
+          },
+          "reminded": {
+            "type": "boolean"
+          },
+          "overdue": {
+            "type": "boolean"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reminderDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "escalationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "assignments": {
+            "$ref": "#/components/schemas/ListEntityTaskAssignee"
+          },
+          "legacyLink": {
+            "type": "string"
+          }
+        }
+      },
+      "GroupAttributeData": {
+        "required": [
+          "groupId",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "securityLabels": {
+            "$ref": "#/components/schemas/ListEntitySecurityLabel"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "maxLength": 2147483647,
+            "minLength": 1,
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "createdBy": {
+            "$ref": "#/components/schemas/User"
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/AttributeSettings"
+          },
+          "groupId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "group": {
+            "$ref": "#/components/schemas/Group"
+          },
+          "pinned": {
+            "type": "boolean"
+          },
+          "default": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Indicator": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "securityLabels": {
+            "$ref": "#/components/schemas/ListEntitySecurityLabel"
+          },
+          "ownerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ownerName": {
+            "type": "string"
+          },
+          "webLink": {
+            "type": "string"
+          },
+          "tags": {
+            "$ref": "#/components/schemas/ListEntityTag"
+          },
+          "type": {
+            "maxLength": 2147483647,
+            "minLength": 1,
+            "type": "string"
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "externalDateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "externalLastModified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "externalDateExpires": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "firstSeen": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastSeen": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "rating": {
+            "maximum": 5,
+            "minimum": 0,
+            "type": "number"
+          },
+          "confidence": {
+            "maximum": 100,
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "threatAssessRating": {
+            "type": "number",
+            "format": "double"
+          },
+          "threatAssessConfidence": {
+            "type": "number",
+            "format": "double"
+          },
+          "threatAssessScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "threatAssessScoreObserved": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "threatAssessScoreFalsePositive": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "source": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "observations": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastObserved": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "falsePositives": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastFalsePositive": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "falsePositiveReportedByUser": {
+            "type": "boolean"
+          },
+          "trackedUsers": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Indicator"
+            }
+          },
+          "privateFlag": {
+            "type": "boolean"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "activeLocked": {
+            "type": "boolean"
+          },
+          "value1": {
+            "type": "string"
+          },
+          "value2": {
+            "type": "string"
+          },
+          "value3": {
+            "type": "string"
+          },
+          "flag1": {
+            "type": "boolean"
+          },
+          "flag2": {
+            "type": "boolean"
+          },
+          "flag3": {
+            "type": "boolean"
+          },
+          "intValue1": {
+            "type": "integer"
+          },
+          "intValue2": {
+            "type": "integer"
+          },
+          "intValue3": {
+            "type": "integer"
+          },
+          "investigationLinks": {
+            "$ref": "#/components/schemas/ListEntityInvestigationLink"
+          },
+          "fileActions": {
+            "$ref": "#/components/schemas/ListEntityFileAction"
+          },
+          "fileOccurrences": {
+            "$ref": "#/components/schemas/ListEntityFileOccurrence"
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/ListEntityIndicatorAttributeData"
+          },
+          "associatedCases": {
+            "$ref": "#/components/schemas/ListEntityCase"
+          },
+          "associatedArtifacts": {
+            "$ref": "#/components/schemas/ListEntityArtifact"
+          },
+          "address": {
+            "type": "string"
+          },
+          "md5": {
+            "type": "string"
+          },
+          "sha1": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mode": {
+            "type": "string"
+          },
+          "ip": {
+            "type": "string"
+          },
+          "hostName": {
+            "type": "string"
+          },
+          "dnsActive": {
+            "type": "boolean"
+          },
+          "whoisActive": {
+            "type": "boolean"
+          },
+          "whois": {
+            "$ref": "#/components/schemas/ListEntityWhoIs"
+          },
+          "geoLocation": {
+            "$ref": "#/components/schemas/GeoLocation"
+          },
+          "dnsResolution": {
+            "$ref": "#/components/schemas/ListEntityDNSResolution"
+          },
+          "text": {
+            "type": "string"
+          },
+          "legacyLink": {
+            "type": "string"
+          },
+          "enrichment": {
+            "$ref": "#/components/schemas/ListEntityAbstractEnrichment"
+          },
+          "fileOccurrence": {
+            "$ref": "#/components/schemas/ListEntityFileOccurrence"
+          }
+        }
+      },
+      "IndicatorAttributeData": {
+        "required": [
+          "indicatorId",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "securityLabels": {
+            "$ref": "#/components/schemas/ListEntitySecurityLabel"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "maxLength": 2147483647,
+            "minLength": 1,
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "createdBy": {
+            "$ref": "#/components/schemas/User"
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/AttributeSettings"
+          },
+          "indicatorId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "indicator": {
+            "$ref": "#/components/schemas/Indicator"
+          },
+          "pinned": {
+            "type": "boolean"
+          },
+          "default": {
+            "type": "boolean"
+          }
+        }
+      },
+      "InvestigationLink": {
+        "required": [
+          "name",
+          "path"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "path": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          }
+        }
+      },
+      "JsonNode": {
+        "type": "object"
+      },
+      "Link": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityAbstractEnrichment": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AbstractEnrichment"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityAdversaryAsset": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdversaryAsset"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityArtifact": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Artifact"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityAttributeData": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttributeData"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityCase": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Case"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityCaseAttributeData": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CaseAttributeData"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityDNSResolution": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DNSResolution"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityFileAction": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileAction"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityFileOccurrence": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileOccurrence"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        },
+        "writeOnly": true
+      },
+      "ListEntityGroup": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Group"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityGroupAttributeData": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupAttributeData"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityIndicator": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Indicator"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityIndicatorAttributeData": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IndicatorAttributeData"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityInvestigationLink": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvestigationLink"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityLink": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityNote": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Note"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntitySecurityLabel": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SecurityLabel"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityString": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityTag": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityTask": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityTaskAssignee": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskAssignee"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityUser": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityVictim": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Victim"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityVictimAsset": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VictimAsset"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityVictimAttributeData": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VictimAttributeData"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityWhoIs": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WhoIs"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "ListEntityWorkflowEvent": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowEvent"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_type": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          }
+        }
+      },
+      "Note": {
+        "required": [
+          "caseId",
+          "caseXid",
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "caseId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "caseXid": {
+            "type": "string"
+          },
+          "text": {
+            "maxLength": 65500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "edited": {
+            "type": "boolean"
+          },
+          "taskId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "taskXid": {
+            "type": "string"
+          },
+          "artifactId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "workflowEventId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "SecurityLabel": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "maxLength": 400,
+            "minLength": 1,
+            "type": "string"
+          },
+          "color": {
+            "maxLength": 10,
+            "minLength": 1,
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "victims": {
+            "$ref": "#/components/schemas/ListEntityVictim"
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/ListEntityAttributeData"
+          }
+        }
+      },
+      "Tag": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "description": {
+            "maxLength": 4000,
+            "minLength": 0,
+            "type": "string"
+          },
+          "lastUsed": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "techniqueId": {
+            "type": "string"
+          },
+          "platforms": {
+            "$ref": "#/components/schemas/ListEntityString"
+          },
+          "securityCoverage": {
+            "$ref": "#/components/schemas/AttackSecurityCoverage"
+          },
+          "normalized": {
+            "type": "boolean"
+          },
+          "synonymousTagNames": {
+            "$ref": "#/components/schemas/ListEntityString"
+          }
+        }
+      },
+      "Task": {
+        "required": [
+          "caseId",
+          "caseXid",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "caseId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "caseXid": {
+            "type": "string"
+          },
+          "xid": {
+            "maxLength": 100,
+            "minLength": 10,
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "maxLength": 1500,
+            "minLength": 0,
+            "type": "string"
+          },
+          "configTask": {
+            "$ref": "#/components/schemas/JsonNode"
+          },
+          "configPlaybook": {
+            "type": "string"
+          },
+          "workflowPhase": {
+            "maximum": 127,
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "workflowStep": {
+            "maximum": 127,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "dependentOnId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string"
+          },
+          "completedBy": {
+            "type": "string"
+          },
+          "completedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "assignee": {
+            "$ref": "#/components/schemas/Assignee"
+          },
+          "notes": {
+            "$ref": "#/components/schemas/ListEntityNote"
+          },
+          "artifacts": {
+            "$ref": "#/components/schemas/ListEntityArtifact"
+          },
+          "durationType": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          }
+        }
+      },
+      "TaskAssignee": {
+        "required": [
+          "type",
+          "user"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userName": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "pseudonym": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "lastLogin": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastPasswordChange": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "uiTheme": {
+            "type": "string"
+          },
+          "jobFunction": {
+            "type": "string"
+          },
+          "jobRole": {
+            "type": "string"
+          },
+          "termsAccepted": {
+            "type": "boolean"
+          },
+          "termsAcceptedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "logoutIntervalMinutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tqlTimeout": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "systemRole": {
+            "type": "string"
+          },
+          "ownerRoles": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "locked": {
+            "type": "boolean"
+          },
+          "passwordResetRequired": {
+            "type": "boolean"
+          },
+          "twoFactorResetRequired": {
+            "type": "boolean"
+          },
+          "customTqlTimeout": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "Victim": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "securityLabels": {
+            "$ref": "#/components/schemas/ListEntitySecurityLabel"
+          },
+          "ownerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ownerName": {
+            "type": "string"
+          },
+          "webLink": {
+            "type": "string"
+          },
+          "tags": {
+            "$ref": "#/components/schemas/ListEntityTag"
+          },
+          "name": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "org": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "suborg": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "workLocation": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "nationality": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "assets": {
+            "$ref": "#/components/schemas/ListEntityVictimAsset"
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/ListEntityVictimAttributeData"
+          }
+        }
+      },
+      "VictimAsset": {
+        "required": [
+          "type",
+          "victimId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "maxLength": 2147483647,
+            "minLength": 1,
+            "type": "string"
+          },
+          "victimId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "addressType": {
+            "type": "string"
+          },
+          "accountName": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "socialNetwork": {
+            "type": "string"
+          },
+          "networkType": {
+            "type": "string"
+          },
+          "website": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "phone": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "webLink": {
+            "type": "string"
+          }
+        }
+      },
+      "VictimAttributeData": {
+        "required": [
+          "value",
+          "victimId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "securityLabels": {
+            "$ref": "#/components/schemas/ListEntitySecurityLabel"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "maxLength": 2147483647,
+            "minLength": 1,
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "createdBy": {
+            "$ref": "#/components/schemas/User"
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/AttributeSettings"
+          },
+          "victimId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "pinned": {
+            "type": "boolean"
+          },
+          "default": {
+            "type": "boolean"
+          }
+        }
+      },
+      "WhoIs": {
+        "required": [
+          "fullRecord"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "fullRecord": {
+            "type": "string"
+          },
+          "registrant": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expires": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Contact"
+            }
+          }
+        }
+      },
+      "WorkflowEvent": {
+        "required": [
+          "caseId",
+          "caseXid",
+          "summary"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "caseId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "caseXid": {
+            "type": "string"
+          },
+          "eventDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "summary": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "deletedReason": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "systemGenerated": {
+            "type": "boolean"
+          },
+          "link": {
+            "type": "string"
+          },
+          "linkText": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "notes": {
+            "$ref": "#/components/schemas/ListEntityNote"
+          }
+        }
+      },
+      "WorkflowTemplate": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "maxLength": 1500,
+            "minLength": 0,
+            "type": "string"
+          },
+          "configTask": {
+            "$ref": "#/components/schemas/JsonNode"
+          },
+          "configPlaybook": {
+            "type": "string"
+          },
+          "configArtifact": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "version": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "cases": {
+            "$ref": "#/components/schemas/ListEntityCase"
+          },
+          "assignee": {
+            "$ref": "#/components/schemas/Assignee"
+          },
+          "configAttribute": {
+            "$ref": "#/components/schemas/JsonNode"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "ownerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "caseList": {
+            "$ref": "#/components/schemas/ListEntityCase"
+          }
+        }
+      },
+      "Owner": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "ownerRole": {
+            "type": "string"
+          },
+          "permIndicator": {
+            "type": "string"
+          },
+          "permGroup": {
+            "type": "string"
+          },
+          "permPost": {
+            "type": "string"
+          },
+          "permTrack": {
+            "type": "string"
+          },
+          "permVictim": {
+            "type": "string"
+          },
+          "permAttribute": {
+            "type": "string"
+          },
+          "permApps": {
+            "type": "string"
+          },
+          "permUsers": {
+            "type": "string"
+          },
+          "permSecurityLabel": {
+            "type": "string"
+          },
+          "permTag": {
+            "type": "string"
+          },
+          "permAttributeType": {
+            "type": "string"
+          },
+          "permSettings": {
+            "type": "string"
+          },
+          "permMembers": {
+            "type": "string"
+          },
+          "permCopyData": {
+            "type": "string"
+          },
+          "permInvite": {
+            "type": "string"
+          },
+          "permTask": {
+            "type": "string"
+          },
+          "permCaseTag": {
+            "type": "string"
+          },
+          "permArtifact": {
+            "type": "string"
+          },
+          "permComment": {
+            "type": "string"
+          },
+          "permTimeline": {
+            "type": "string"
+          },
+          "permWorkflowTemplate": {
+            "type": "string"
+          },
+          "permPublish": {
+            "type": "string"
+          },
+          "permPlaybooksExecute": {
+            "type": "string"
+          },
+          "permPlaybooks": {
+            "type": "string"
+          }
+        }
+      },
+      "OwnerRole": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "descriptionOrg": {
+            "type": "string"
+          },
+          "descriptionComm": {
+            "type": "string"
+          },
+          "descriptionAdmin": {
+            "type": "string"
+          },
+          "orgRole": {
+            "type": "boolean"
+          },
+          "commRole": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "available": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SystemRole": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "assignable": {
+            "type": "boolean"
+          },
+          "displayed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UserGroup": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "users": {
+            "$ref": "#/components/schemas/ListEntityUser"
+          }
+        }
+      },
+      "QueryApiEntity": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            },
+            "writeOnly": true
+          }
+        }
+      },
+      "IntelReqType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "IntelReqResult": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "matchedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "origin": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "intelReqId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ownerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ownerName": {
+            "type": "string"
+          },
+          "itemId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "itemType": {
+            "type": "string"
+          },
+          "internal": {
+            "type": "boolean"
+          },
+          "falsePositive": {
+            "type": "boolean"
+          },
+          "associated": {
+            "type": "boolean"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "archivedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "intelRequirement": {
+            "$ref": "#/components/schemas/IntelRequirement"
+          }
+        }
+      },
+      "IntelRequirement": {
+        "required": [
+          "keywordSections",
+          "requirementText",
+          "subtype",
+          "uniqueId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "xid": {
+            "type": "string"
+          },
+          "createdBy": {
+            "$ref": "#/components/schemas/User"
+          },
+          "associatedGroups": {
+            "$ref": "#/components/schemas/ListEntityGroup"
+          },
+          "associatedIndicators": {
+            "$ref": "#/components/schemas/ListEntityIndicator"
+          },
+          "associatedVictimAssets": {
+            "$ref": "#/components/schemas/ListEntityVictimAsset"
+          },
+          "associatedCases": {
+            "$ref": "#/components/schemas/ListEntityCase"
+          },
+          "associatedArtifacts": {
+            "$ref": "#/components/schemas/ListEntityArtifact"
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "webLink": {
+            "type": "string"
+          },
+          "tags": {
+            "$ref": "#/components/schemas/ListEntityTag"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "uniqueId": {
+            "type": "string"
+          },
+          "requirementText": {
+            "type": "string"
+          },
+          "subtype": {
+            "$ref": "#/components/schemas/IntelReqType"
+          },
+          "category": {
+            "$ref": "#/components/schemas/IntelReqType"
+          },
+          "description": {
+            "type": "string"
+          },
+          "keywordSections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KeywordSection"
+            }
+          },
+          "resetResults": {
+            "type": "boolean"
+          },
+          "lastRetrievedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "resultsLink": {
+            "type": "string"
+          }
+        }
+      },
+      "Keyword": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "KeywordSection": {
+        "required": [
+          "keywords"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sectionNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "compareValue": {
+            "type": "string"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Keyword"
+            }
+          }
+        }
+      },
+      "AttributeType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "maxSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "allowMarkdown": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "autoGenerated": {
+            "type": "boolean"
+          },
+          "validationRule": {
+            "$ref": "#/components/schemas/ValidationRule"
+          },
+          "attributeTypeMappings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttributeTypeMapping"
+            }
+          },
+          "settings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttributeTypeSettings"
+            }
+          }
+        }
+      },
+      "AttributeTypeMapping": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          },
+          "maxAllowed": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ownerName": {
+            "type": "string"
+          }
+        }
+      },
+      "AttributeTypeSettings": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "typeName": {
+            "type": "string"
+          },
+          "displayed": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ownerName": {
+            "type": "string"
+          },
+          "pinnedByDefault": {
+            "type": "boolean"
+          },
+          "associable": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ValidationRule": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "APIKeyAuth": {
+        "type": "apiKey",
+        "description": "ThreatConnect API Token",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  }
+}
